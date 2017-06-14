@@ -1,0 +1,16 @@
+version: '3'
+services:
+  browser_worker:
+    image: 'alpeware/chrome-headless-trunk'
+    volumes:
+      - ./chromedata/:/data
+    ports:
+      - 0.0.0.0:9222:9222
+  web_client:
+    build: ./client
+    ports: 
+      - "3000:3000"
+    links:
+      - "browser_worker"
+    env_file:
+      - ./github_creds.env
